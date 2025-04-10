@@ -7,5 +7,8 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        swappable = 'AUTH_USER_MODEL'
+
     def __str__(self):
         return self.username

@@ -47,10 +47,6 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django_browser_reload',
-
-
-
-
 ]
 
 NPM_BIN_PATH = "npm"
@@ -59,14 +55,15 @@ TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'users.middleware.SeparateAdminSessionMiddleware',  # Ajouter avant SessionMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-      "django_browser_reload.middleware.BrowserReloadMiddleware",
-
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    'django_htmx.middleware.HtmxMiddleware',  # Ajouter cette ligne
 ]
 
 ROOT_URLCONF = 'realestate_backend.urls'
@@ -154,6 +151,7 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'users.User'
 
+# Paramètres d'authentification
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'core:home'
 LOGOUT_REDIRECT_URL = 'core:home'
@@ -170,3 +168,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'votre@email.com'
 EMAIL_HOST_PASSWORD = 'votre_mot_de_passe'
 """
+
+# Configurations des sessions
+SESSION_COOKIE_NAME = 'sessionid_site'  # Pour le site principal
+ADMIN_SESSION_COOKIE_NAME = 'sessionid_admin'  # Pour l'admin

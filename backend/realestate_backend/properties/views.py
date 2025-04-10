@@ -51,26 +51,46 @@ def property_search(request):
     properties = Property.objects.all()
 
     if form.is_valid():
+        # Récupérer les données du formulaire
         min_price = form.cleaned_data.get('min_price')
         max_price = form.cleaned_data.get('max_price')
         location = form.cleaned_data.get('location')
         property_type = form.cleaned_data.get('property_type')
+        bedrooms = form.cleaned_data.get('bedrooms')
+        bathrooms = form.cleaned_data.get('bathrooms')
+        min_area = form.cleaned_data.get('min_area')
+        max_area = form.cleaned_data.get('max_area')
 
+        # Appliquer les filtres
         if min_price:
             properties = properties.filter(price__gte=min_price)
         if max_price:
             properties = properties.filter(price__lte=max_price)
         if location:
-            properties = properties.filter(Q(location__icontains=location))
+            properties = properties.filter(
+                Q(location__icontains=location)
+            )
         if property_type:
             properties = properties.filter(property_type=property_type)
+        if bedrooms:
+            properties = properties.filter(bedrooms=bedrooms)
+        if bathrooms:
+            properties = properties.filter(bathrooms=bathrooms)
+        if min_area:
+            properties = properties.filter(area__gte=min_area)
+        if max_area:
+            properties = properties.filter(area__lte=max_area)
+
+    # Ordonner les résultats par date de création
+    properties = properties.order_by('-created_at')
 
     context = {
         'form': form,
-        'properties': properties
+        'properties': properties,
+        'count': properties.count(),
     }
 
-    if request.htmx and not request.htmx.boosted:
+    if request.htmx:
         return render(request, 'properties/partials/search_results.html', context)
     return render(request, 'properties/search.html', context)
 

@@ -13,43 +13,67 @@ class ReservationForm(forms.ModelForm):
         fields = ['property', 'start_date', 'end_date', 'message']
 
 class PropertySearchForm(forms.Form):
-    PROPERTY_TYPES = [('', 'Tous types')] + Property.PROPERTY_TYPES
-
     min_price = forms.DecimalField(
         required=False,
+        label="Prix minimum",
         widget=forms.NumberInput(attrs={
             'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
             'placeholder': 'Prix minimum'
         })
     )
-    
     max_price = forms.DecimalField(
         required=False,
+        label="Prix maximum",
         widget=forms.NumberInput(attrs={
             'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
             'placeholder': 'Prix maximum'
         })
     )
-    
     location = forms.CharField(
         required=False,
+        label="Localisation",
         widget=forms.TextInput(attrs={
             'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
-            'placeholder': 'Localisation'
+            'placeholder': 'Ville, quartier...'
         })
     )
-    
     property_type = forms.ChoiceField(
-        choices=PROPERTY_TYPES,
         required=False,
+        label="Type de bien",
+        choices=[('', 'Tous types')] + Property.PROPERTY_TYPES,
         widget=forms.Select(attrs={
             'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
         })
     )
-    
     bedrooms = forms.IntegerField(
         required=False,
+        label="Nombre de chambres",
         widget=forms.NumberInput(attrs={
-            'class': 'form-input rounded-lg'
+            'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
+            'placeholder': 'Nombre de chambres'
+        })
+    )
+    bathrooms = forms.IntegerField(
+        required=False,
+        label="Nombre de salles de bain",
+        widget=forms.NumberInput(attrs={
+            'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
+            'placeholder': 'Nombre de salles de bain'
+        })
+    )
+    min_area = forms.DecimalField(
+        required=False,
+        label="Surface minimum (m²)",
+        widget=forms.NumberInput(attrs={
+            'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
+            'placeholder': 'Surface minimum'
+        })
+    )
+    max_area = forms.DecimalField(
+        required=False,
+        label="Surface maximum (m²)",
+        widget=forms.NumberInput(attrs={
+            'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
+            'placeholder': 'Surface maximum'
         })
     )

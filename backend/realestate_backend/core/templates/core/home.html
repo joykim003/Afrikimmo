@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}ImmoBénin - Accueil{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[500px] bg-gray-900 text-white">
+    <div class="absolute inset-0">
+        <img src="{% static 'images/hero-bg.jpg' %}" alt="Hero" class="w-full h-full object-cover opacity-50">
+    </div>
+    <div class="relative container mx-auto px-4 h-full flex items-center">
+        <div class="max-w-2xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Trouvez votre bien immobilier idéal</h1>
+            <p class="text-xl mb-8">Des maisons, appartements et terrains de qualité au Bénin</p>
+            <a href="{% url 'properties:list' %}" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+                Voir nos biens
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Properties Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8">Nos derniers biens</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for property in latest_properties %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="{{ property.image.url }}" alt="{{ property.title }}" 
+                     class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-xl mb-2">{{ property.title }}</h3>
+                    <p class="text-gray-600 mb-2">{{ property.location }}</p>
+                    <p class="text-blue-600 font-bold text-xl">{{ property.price }} FCFA</p>
+                    <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
+                        Voir détails
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+    
+    {% endblock %}

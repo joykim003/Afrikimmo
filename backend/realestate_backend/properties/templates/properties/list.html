@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Biens disponibles{% endblock %}
+{% block content %}
+  <h2 class="text-2xl font-bold mb-4">Biens disponibles</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {% for property in properties %}
+      <div class="border p-4 bg-white rounded shadow">
+        <img src="{{ property.image.url }}" class="mb-2 w-full h-48 object-cover" />
+        <h3 class="font-semibold">{{ property.title }}</h3>
+        <p>{{ property.location }}</p>
+        <p class="text-green-600 font-bold">{{ property.price }} FCFA</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

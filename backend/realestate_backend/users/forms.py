@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
 from .models import User
+
+User = get_user_model()
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
@@ -77,9 +80,20 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'phone', 'address', 'avatar']
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-input'}),
-            'email': forms.EmailInput(attrs={'class': 'form-input'}),
-            'phone': forms.TextInput(attrs={'class': 'form-input'}),
-            'address': forms.Textarea(attrs={'class': 'form-textarea', 'rows': 3}),
-            'avatar': forms.FileInput(attrs={'class': 'form-input'})
+            'username': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+            }),
+            'address': forms.Textarea(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400',
+                'rows': 3
+            }),
+            'avatar': forms.FileInput(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+            })
         }

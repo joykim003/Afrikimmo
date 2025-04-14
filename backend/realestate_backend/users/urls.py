@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),  # Utiliser notre vue personnalisée
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('dashboard/', views.dashboard_view, name='dashboard'),
 ]

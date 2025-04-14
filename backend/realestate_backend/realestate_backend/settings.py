@@ -153,7 +153,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # Paramètres d'authentification
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'core:home'
+LOGIN_REDIRECT_URL = 'users:dashboard'
 LOGOUT_REDIRECT_URL = 'core:home'
 
 # Configuration Email (exemple avec console pour le développement)

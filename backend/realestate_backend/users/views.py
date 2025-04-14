@@ -65,3 +65,14 @@ def logout_view(request):
         logout(request)
         messages.success(request, 'Vous avez été déconnecté avec succès.')
     return redirect('core:home')
+
+@login_required
+def dashboard_view(request):
+    context = {
+        'visited_properties_count': 0,  # À implémenter
+        'favorites_count': 0,  # À implémenter
+        'messages_count': 0,  # À implémenter
+        'recent_activities': [],  # À implémenter
+        'favorite_properties': [],  # À implémenter
+    }
+    return render(request, 'users/dashboard.html', context)

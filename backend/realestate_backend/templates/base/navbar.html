@@ -22,6 +22,9 @@
             <div class="hidden md:flex items-center space-x-4">
                 {% if user.is_authenticated %}
                     <div class="flex items-center space-x-4">
+                        <a href="{% url 'users:dashboard' %}" class="text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-chart-line mr-1"></i>Dashboard
+                        </a>
                         <a href="{% url 'users:profile' %}" class="text-gray-700 hover:text-blue-600">
                             <i class="fas fa-user-circle mr-1"></i>{{ user.username }}
                         </a>
@@ -77,6 +80,9 @@
                 <hr class="my-2">
                 
                 {% if user.is_authenticated %}
+                    <a href="{% url 'users:dashboard' %}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-chart-line mr-1"></i>Dashboard
+                    </a>
                     <a href="{% url 'users:profile' %}" class="block py-2 text-gray-700 hover:text-blue-600">
                         <i class="fas fa-user-circle mr-1"></i>{{ user.username }}
                     </a>

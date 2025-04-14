@@ -66,9 +66,11 @@
 
                 <!-- Bouton de contact -->
                 <div class="border-t pt-6">
-                    <button class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200">
-                        <i class="fas fa-envelope mr-2"></i>Contacter l'agence
-                    </button>
+                    <a href="{% url 'properties:contact_seller' property_id=property.id %}" 
+                       class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Contacter le vendeur
+                    </a>
                 </div>
             </div>
         </div>

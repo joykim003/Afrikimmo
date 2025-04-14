@@ -10,4 +10,5 @@ urlpatterns = [
     path('create/', views.property_create, name='create'),
     path('<int:pk>/edit/', views.property_edit, name='edit'),
     path('<int:pk>/delete/', views.property_delete, name='delete'),
+    path('<int:property_id>/contact/', views.seller_contacts, name='contact_seller'),
 ]

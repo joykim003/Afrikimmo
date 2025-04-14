@@ -133,3 +133,35 @@ def property_detail(request, pk):
         'similar_properties': similar_properties,
     }
     return render(request, 'properties/detail.html', context)
+
+@login_required
+def contact_seller(request, property_id):
+    property = get_object_or_404(Property, id=property_id)
+    
+    if request.method == 'POST':
+        form = PropertyMessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.property = property
+            message.sender = request.user
+            message.recipient = property.seller
+            message.save()
+            
+            messages.success(request, "Votre message a été envoyé avec succès!")
+            return redirect('properties:detail', pk=property_id)
+    else:
+        form = PropertyMessageForm()
+
+    return render(request, 'properties/contact_form.html', {
+        'form': form,
+        'property': property
+    })
+
+def seller_contacts(request, property_id):
+    property = get_object_or_404(Property, id=property_id)
+    contact_info = property.get_contact_info()
+    
+    return render(request, 'properties/seller_contacts.html', {
+        'property': property,
+        'contact_info': contact_info,
+    })

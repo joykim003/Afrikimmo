@@ -1,5 +1,5 @@
 from django import forms
-from .models import Property
+from .models import Property, PropertyMessage  # Ajout de PropertyMessage
 from .models import Reservation
 
 class PropertyForm(forms.ModelForm):
@@ -89,3 +89,21 @@ class PropertySearchForm(forms.Form):
             'placeholder': 'Surface maximum'
         })
     )
+
+class PropertyMessageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyMessage
+        fields = ['subject', 'message']
+        labels = {
+            'subject': 'Sujet',
+            'message': 'Message'
+        }
+        widgets = {
+            'subject': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg'
+            }),
+            'message': forms.Textarea(attrs={
+                'rows': 4,
+                'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg'
+            })
+        }

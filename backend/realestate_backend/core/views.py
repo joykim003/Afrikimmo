@@ -4,10 +4,11 @@ from django.core.mail import send_mail
 from django.contrib import messages
 
 def home(request):
-    # Récupérer les 6 derniers biens
+    featured_properties = Property.objects.all().order_by('-created_at')[:4]
     latest_properties = Property.objects.all().order_by('-created_at')[:6]
     
     context = {
+        'featured_properties': featured_properties,
         'latest_properties': latest_properties,
     }
     return render(request, 'core/home.html', context)

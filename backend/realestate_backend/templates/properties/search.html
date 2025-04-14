@@ -18,13 +18,14 @@
                  :class="{'hidden md:block': !isFilterOpen, 'block': isFilterOpen}">
                 <h2 class="text-xl font-semibold mb-6">Filtres</h2>
                 <form hx-get="{% url 'properties:search' %}" 
-                      hx-trigger="change delay:500ms, search" 
+                      hx-trigger="input delay:500ms, change delay:500ms from:input, change from:select"
                       hx-target="#search-results"
+                      hx-indicator=".htmx-indicator"
                       class="space-y-6">
                     {% csrf_token %}
                     {% for field in form %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">
                             {{ field.label }}
                         </label>
                         {{ field }}
@@ -32,11 +33,11 @@
                     {% endfor %}
 
                     <!-- Indicateur de chargement -->
-                    <div class="htmx-indicator flex justify-center py-4">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <div class="htmx-indicator flex justify-center">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
                     </div>
 
-                    <!-- Bouton de recherche -->
+                    <!-- Bouton de recherche (optionnel maintenant) -->
                     <div class="pt-4 border-t">
                         <button type="submit"
                                 class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2">
@@ -50,28 +51,13 @@
 
         <!-- Résultats -->
         <div class="md:w-2/3">
-            <!-- Nombre de résultats -->
             <div class="mb-4 text-gray-600">
-                <span id="results-count">{{ properties|length }}</span> résultat(s) trouvé(s)
+                <span class="font-medium">{{ properties|length }}</span> résultat(s) trouvé(s)
             </div>
-            
             <div id="search-results" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {% include 'properties/partials/search_results.html' %}
             </div>
         </div>
     </div>
 </div>
-
-<!-- Script pour fermer le menu au clic à l'extérieur -->
-<script>
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('[x-data]')) {
-        document.querySelectorAll('[x-data]').forEach(el => {
-            if (el.__x) {
-                el.__x.$data.isFilterOpen = false;
-            }
-        });
-    }
-});
-</script>
 {% endblock %}

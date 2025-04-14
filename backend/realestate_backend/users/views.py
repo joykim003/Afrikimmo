@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from .forms import SignUpForm, LoginForm, UserEditForm
+from properties.models import Property  # Ajout de l'import
 
 def signup(request):
     if request.method == 'POST':
@@ -74,5 +75,6 @@ def dashboard_view(request):
         'messages_count': 0,  # À implémenter
         'recent_activities': [],  # À implémenter
         'favorite_properties': [],  # À implémenter
+        'user_properties': Property.objects.filter(seller=request.user).order_by('-created_at'),
     }
     return render(request, 'users/dashboard.html', context)

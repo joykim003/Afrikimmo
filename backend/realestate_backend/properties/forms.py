@@ -1,11 +1,23 @@
 from django import forms
-from .models import Property
+from .models import Property, PropertyMessage  # Ajout de PropertyMessage
 from .models import Reservation
 
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = ['title', 'description', 'property_type', 'price', 'location', 'image']
+        labels = {
+            'title': 'Titre',
+            'description': 'Description',
+            'property_type': 'Type de bien',
+            'price': 'Prix (FCFA)',
+            'location': 'Localisation',
+            'image': 'Image'
+        }
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+            'price': forms.NumberInput(attrs={'min': '0', 'step': '1000'}),
+        }
 
 class ReservationForm(forms.ModelForm):
     class Meta:
@@ -77,3 +89,21 @@ class PropertySearchForm(forms.Form):
             'placeholder': 'Surface maximum'
         })
     )
+
+class PropertyMessageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyMessage
+        fields = ['subject', 'message']
+        labels = {
+            'subject': 'Sujet',
+            'message': 'Message'
+        }
+        widgets = {
+            'subject': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg'
+            }),
+            'message': forms.Textarea(attrs={
+                'rows': 4,
+                'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg'
+            })
+        }

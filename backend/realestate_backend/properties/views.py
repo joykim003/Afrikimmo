@@ -8,21 +8,49 @@ from .models import Reservation
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import PropertySearchForm
+from django.contrib import messages
 
 def property_list(request):
     properties = Property.objects.all().order_by('-created_at')
     return render(request, 'properties/list.html', {'properties': properties})
 
+@login_required
 def property_create(request):
     if request.method == 'POST':
         form = PropertyForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('properties:list')
+            property = form.save(commit=False)
+            property.seller = request.user
+            property.save()
+            messages.success(request, 'Propriété créée avec succès!')
+            return redirect('users:dashboard')
+        else:
+            messages.error(request, 'Erreur lors de la création de la propriété.')
     else:
         form = PropertyForm()
-    return render(request, 'properties/create.html', {'form': form})
+    
+    return render(request, 'properties/property_form.html', {'form': form})
 
+@login_required
+def property_edit(request, pk):
+    property = get_object_or_404(Property, pk=pk, seller=request.user)
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES, instance=property)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Propriété mise à jour avec succès!')
+            return redirect('users:dashboard')
+    else:
+        form = PropertyForm(instance=property)
+    
+    return render(request, 'properties/property_form.html', {'form': form})
+
+@login_required
+def property_delete(request, pk):
+    property = get_object_or_404(Property, pk=pk, seller=request.user)
+    property.delete()
+    messages.success(request, 'Propriété supprimée avec succès!')
+    return redirect('users:dashboard')
 
 @login_required
 def create_reservation(request):

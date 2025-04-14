@@ -10,8 +10,28 @@ class Property(models.Model):
         ('land', 'Terrain'),
     ]
 
+    SELLER_TYPES = [
+        ('owner', 'Propriétaire'),
+        ('agent', 'Agent immobilier'),
+        ('developer', 'Promoteur'),
+    ]
+
     title = models.CharField(max_length=200)
     description = models.TextField()
+    seller = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
+        related_name='properties',
+        verbose_name="Vendeur/Bailleur",
+        null=True,  # Temporairement
+        blank=True  # Temporairement
+    )
+    seller_type = models.CharField(
+        max_length=20,
+        choices=SELLER_TYPES,
+        default='owner',
+        verbose_name="Type de vendeur"
+    )
     property_type = models.CharField(max_length=20, choices=PROPERTY_TYPES)
     price = models.DecimalField(max_digits=12, decimal_places=2)
     location = models.CharField(max_length=255)
@@ -31,6 +51,14 @@ class Property(models.Model):
 
     def get_absolute_url(self):
         return reverse('properties:detail', kwargs={'pk': self.pk})
+
+    def get_seller_contact(self):
+        """Retourne les informations de contact du vendeur"""
+        return {
+            'name': self.seller.get_full_name() or self.seller.username,
+            'email': self.seller.email,
+            'phone': self.seller.phone if hasattr(self.seller, 'phone') else None
+        }
 
 class Reservation(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

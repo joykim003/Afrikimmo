@@ -6,6 +6,18 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = ['title', 'description', 'property_type', 'price', 'location', 'image']
+        labels = {
+            'title': 'Titre',
+            'description': 'Description',
+            'property_type': 'Type de bien',
+            'price': 'Prix (FCFA)',
+            'location': 'Localisation',
+            'image': 'Image'
+        }
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+            'price': forms.NumberInput(attrs={'min': '0', 'step': '1000'}),
+        }
 
 class ReservationForm(forms.ModelForm):
     class Meta:

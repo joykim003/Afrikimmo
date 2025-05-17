@@ -12,6 +12,7 @@ media/
 .env
 venv/
 ENV/
+.venv/
 
 # VS Code
 .vscode/

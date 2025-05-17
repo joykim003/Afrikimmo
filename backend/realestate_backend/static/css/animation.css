@@ -1,0 +1,132 @@
+/* ------------------ Apparition ------------------ */
+.fade-in:hover {
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+  }
+  
+  .zoom-in:hover {
+    animation: zoomIn 0.6s ease-out forwards;
+  }
+  @keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+  
+  /* ------------------ Disparition ------------------ */
+  .fade-out {
+    animation: fadeOut 0.5s ease-in forwards;
+  }
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  
+  .slide-out-left {
+    animation: slideOutLeft 0.6s ease-in forwards;
+  }
+  @keyframes slideOutLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to   { transform: translateX(-100%); opacity: 0; }
+  }
+  
+  .zoom-out:hover {
+    animation: zoomOut 0.5s ease-in forwards;
+  }
+  @keyframes zoomOut {
+    from { transform: scale(1); opacity: 1; }
+    to   { transform: scale(0.5); opacity: 0; }
+  }
+  
+  /* ------------------ Hover / Focus ------------------ */
+  .bounce:hover {
+    animation: bounce 0.5s;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  
+  .scale-up:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+
+  
+  .scale-down:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s out;
+  }
+    
+  .pulse {
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  /* ------------------ Rotation & Flip ------------------ */
+  .rotate {
+    animation: rotate 1s linear infinite;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  
+  .flip {
+    animation: flip 0.8s ease-in-out forwards;
+  }
+  @keyframes flip {
+    from { transform: rotateY(0); }
+    to   { transform: rotateY(180deg); }
+  }
+  
+  /* ------------------ Stagger (cascade) ------------------ */
+  .staggered-fade-in > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerFade 0.6s ease-out forwards;
+  }
+  .staggered-fade-in > *:nth-child(1) { animation-delay: 0.1s; }
+  .staggered-fade-in > *:nth-child(2) { animation-delay: 0.2s; }
+  .staggered-fade-in > *:nth-child(3) { animation-delay: 0.3s; }
+  .staggered-fade-in > *:nth-child(4) { animation-delay: 0.4s; }
+  .staggered-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
+  
+  @keyframes staggerFade {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* ------------------ Shake ------------------ */
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  

@@ -19,7 +19,7 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <img src="{{ property.image.url }}" 
                      alt="{{ property.title }}" 
-                     class="w-full h-[500px] object-cover">
+                     class="w-full h-[500px] object-cover transform hover:scale-105">
             </div>
 
             <!-- Informations principales -->
@@ -79,10 +79,10 @@
         {% if similar_properties %}
         <div class="mt-12">
             <h2 class="text-2xl font-bold mb-6">Biens similaires</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {% for similar in similar_properties %}
                 <a href="{{ similar.get_absolute_url }}" class="block">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 transform hover:scale-105">
                         <img src="{{ similar.image.url }}" 
                              alt="{{ similar.title }}" 
                              class="w-full h-48 object-cover">
